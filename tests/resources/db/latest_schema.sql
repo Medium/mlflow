@@ -7,8 +7,8 @@ CREATE TABLE alembic_version (
 
 CREATE TABLE experiments (
 	experiment_id INTEGER NOT NULL, 
-	name VARCHAR(256) NOT NULL, 
-	artifact_location VARCHAR(256), 
+	name VARCHAR(200) NOT NULL,
+	artifact_location VARCHAR(200),
 	lifecycle_stage VARCHAR(32), 
 	CONSTRAINT experiment_pk PRIMARY KEY (experiment_id), 
 	UNIQUE (name), 
@@ -17,18 +17,18 @@ CREATE TABLE experiments (
 
 
 CREATE TABLE registered_models (
-	name VARCHAR(256) NOT NULL,
+	name VARCHAR(200) NOT NULL,
 	creation_time BIGINT,
 	last_updated_time BIGINT,
-	description VARCHAR(5000),
+	description VARCHAR(200),
 	CONSTRAINT registered_model_pk PRIMARY KEY (name),
 	UNIQUE (name)
 )
 
 
 CREATE TABLE experiment_tags (
-	key VARCHAR(250) NOT NULL, 
-	value VARCHAR(5000), 
+	key VARCHAR(200) NOT NULL,
+	value VARCHAR(200),
 	experiment_id INTEGER NOT NULL, 
 	CONSTRAINT experiment_tag_pk PRIMARY KEY (key, experiment_id), 
 	FOREIGN KEY(experiment_id) REFERENCES experiments (experiment_id)
@@ -36,17 +36,17 @@ CREATE TABLE experiment_tags (
 
 
 CREATE TABLE model_versions (
-	name VARCHAR(256) NOT NULL,
+	name VARCHAR(200) NOT NULL,
 	version INTEGER NOT NULL,
 	creation_time BIGINT,
 	last_updated_time BIGINT,
-	description VARCHAR(5000),
-	user_id VARCHAR(256),
+	description VARCHAR(200),
+	user_id VARCHAR(200),
 	current_stage VARCHAR(20),
-	source VARCHAR(500),
+	source VARCHAR(200),
 	run_id VARCHAR(32) NOT NULL,
 	status VARCHAR(20),
-	status_message VARCHAR(500),
+	status_message VARCHAR(200),
 	CONSTRAINT model_version_pk PRIMARY KEY (name, version),
 	FOREIGN KEY(name) REFERENCES registered_models (name) ON UPDATE CASCADE
 )
@@ -54,11 +54,11 @@ CREATE TABLE model_versions (
 
 CREATE TABLE runs (
 	run_uuid VARCHAR(32) NOT NULL, 
-	name VARCHAR(250), 
+	name VARCHAR(200),
 	source_type VARCHAR(20), 
-	source_name VARCHAR(500), 
+	source_name VARCHAR(200),
 	entry_point_name VARCHAR(50), 
-	user_id VARCHAR(256), 
+	user_id VARCHAR(200),
 	status VARCHAR(20), 
 	start_time BIGINT, 
 	end_time BIGINT, 
@@ -75,7 +75,7 @@ CREATE TABLE runs (
 
 
 CREATE TABLE latest_metrics (
-	key VARCHAR(250) NOT NULL, 
+	key VARCHAR(200) NOT NULL,
 	value FLOAT NOT NULL, 
 	timestamp BIGINT, 
 	step BIGINT NOT NULL, 
@@ -88,7 +88,7 @@ CREATE TABLE latest_metrics (
 
 
 CREATE TABLE metrics (
-	key VARCHAR(250) NOT NULL, 
+	key VARCHAR(200) NOT NULL,
 	value FLOAT NOT NULL, 
 	timestamp BIGINT NOT NULL, 
 	run_uuid VARCHAR(32) NOT NULL, 
@@ -100,8 +100,8 @@ CREATE TABLE metrics (
 
 
 CREATE TABLE params (
-	key VARCHAR(250) NOT NULL, 
-	value VARCHAR(250) NOT NULL, 
+	key VARCHAR(200) NOT NULL,
+	value VARCHAR(200) NOT NULL,
 	run_uuid VARCHAR(32) NOT NULL, 
 	CONSTRAINT param_pk PRIMARY KEY (key, run_uuid), 
 	FOREIGN KEY(run_uuid) REFERENCES runs (run_uuid)
@@ -109,8 +109,8 @@ CREATE TABLE params (
 
 
 CREATE TABLE tags (
-	key VARCHAR(250) NOT NULL, 
-	value VARCHAR(5000), 
+	key VARCHAR(200) NOT NULL,
+	value VARCHAR(200),
 	run_uuid VARCHAR(32) NOT NULL, 
 	CONSTRAINT tag_pk PRIMARY KEY (key, run_uuid), 
 	FOREIGN KEY(run_uuid) REFERENCES runs (run_uuid)
