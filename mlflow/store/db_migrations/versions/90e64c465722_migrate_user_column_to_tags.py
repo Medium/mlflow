@@ -25,7 +25,7 @@ Base = declarative_base()
 class SqlRun(Base):
     __tablename__ = 'runs'
     run_uuid = Column(String(32), nullable=False)
-    user_id = Column(String(256), nullable=True, default=None)
+    user_id = Column(String(100), nullable=True, default=None)
     experiment_id = Column(Integer)
 
     __table_args__ = (
@@ -35,8 +35,8 @@ class SqlRun(Base):
 
 class SqlTag(Base):
     __tablename__ = 'tags'
-    key = Column(String(250))
-    value = Column(String(250), nullable=True)
+    key = Column(String(100))
+    value = Column(String(100), nullable=True)
     run_uuid = Column(String(32), ForeignKey('runs.run_uuid'))
     run = relationship('SqlRun', backref=backref('tags', cascade='all'))
 

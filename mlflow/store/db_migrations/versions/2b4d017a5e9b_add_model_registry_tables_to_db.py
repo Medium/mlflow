@@ -39,27 +39,27 @@ def upgrade():
     _logger.info("Adding registered_models and model_versions tables to database.")
 
     op.create_table(SqlRegisteredModel.__tablename__,
-                    Column('name', String(256), unique=True, nullable=False),
+                    Column('name', String(100), unique=True, nullable=False),
                     Column('creation_time', BigInteger, default=lambda: int(time.time() * 1000)),
                     Column('last_updated_time', BigInteger, nullable=True, default=None),
-                    Column('description', String(5000), nullable=True),
+                    Column('description', String(100), nullable=True),
                     PrimaryKeyConstraint('name', name='registered_model_pk')
                     )
 
     op.create_table(SqlModelVersion.__tablename__,
-                    Column('name', String(256), ForeignKey('registered_models.name',
+                    Column('name', String(100), ForeignKey('registered_models.name',
                                                            onupdate='cascade')),
                     Column('version', Integer, nullable=False),
                     Column('creation_time', BigInteger, default=lambda: int(time.time() * 1000)),
                     Column('last_updated_time', BigInteger, nullable=True, default=None),
-                    Column('description', String(5000), nullable=True),
-                    Column('user_id', String(256), nullable=True, default=None),
+                    Column('description', String(100), nullable=True),
+                    Column('user_id', String(100), nullable=True, default=None),
                     Column('current_stage', String(20), default=STAGE_NONE),
-                    Column('source', String(500), nullable=True, default=None),
+                    Column('source', String(100), nullable=True, default=None),
                     Column('run_id', String(32), nullable=False),
                     Column('status', String(20),
                            default=ModelVersionStatus.to_string(ModelVersionStatus.READY)),
-                    Column('status_message', String(500), nullable=True, default=None),
+                    Column('status_message', String(100), nullable=True, default=None),
                     PrimaryKeyConstraint('name', 'version', name='model_version_pk')
                     )
 
