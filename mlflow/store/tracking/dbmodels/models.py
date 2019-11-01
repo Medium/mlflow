@@ -36,12 +36,12 @@ class SqlExperiment(Base):
     """
     Experiment ID: `Integer`. *Primary Key* for ``experiment`` table.
     """
-    name = Column(String(256), unique=True, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
     """
     Experiment name: `String` (limit 256 characters). Defined as *Unique* and *Non null* in
                      table schema.
     """
-    artifact_location = Column(String(256), nullable=True)
+    artifact_location = Column(String(100), nullable=True)
     """
     Default artifact location for this experiment: `String` (limit 256 characters). Defined as
                                                     *Non null* in table schema.
@@ -86,7 +86,7 @@ class SqlRun(Base):
     """
     Run UUID: `String` (limit 32 characters). *Primary Key* for ``runs`` table.
     """
-    name = Column(String(250))
+    name = Column(String(100))
     """
     Run name: `String` (limit 250 characters).
     """
@@ -95,7 +95,7 @@ class SqlRun(Base):
     Source Type: `String` (limit 20 characters). Can be one of ``NOTEBOOK``, ``JOB``, ``PROJECT``,
                  ``LOCAL`` (default), or ``UNKNOWN``.
     """
-    source_name = Column(String(500))
+    source_name = Column(String(100))
     """
     Name of source recording the run: `String` (limit 500 characters).
     """
@@ -103,7 +103,7 @@ class SqlRun(Base):
     """
     Entry-point name that launched the run run: `String` (limit 50 characters).
     """
-    user_id = Column(String(256), nullable=True, default=None)
+    user_id = Column(String(100), nullable=True, default=None)
     """
     User ID: `String` (limit 256 characters). Defaults to ``null``.
     """
@@ -129,7 +129,7 @@ class SqlRun(Base):
     Lifecycle Stage of run: `String` (limit 32 characters).
                             Can be either ``active`` (default) or ``deleted``.
     """
-    artifact_uri = Column(String(200), default=None)
+    artifact_uri = Column(String(100), default=None)
     """
     Default artifact location for this run: `String` (limit 200 characters).
     """
@@ -182,11 +182,11 @@ class SqlExperimentTag(Base):
     """
     __tablename__ = 'experiment_tags'
 
-    key = Column(String(250))
+    key = Column(String(100))
     """
     Tag key: `String` (limit 250 characters). *Primary Key* for ``tags`` table.
     """
-    value = Column(String(5000), nullable=True)
+    value = Column(String(100), nullable=True)
     """
     Value associated with tag: `String` (limit 5000 characters). Could be *null*.
     """
@@ -222,11 +222,11 @@ class SqlTag(Base):
     """
     __tablename__ = 'tags'
 
-    key = Column(String(250))
+    key = Column(String(100))
     """
     Tag key: `String` (limit 250 characters). *Primary Key* for ``tags`` table.
     """
-    value = Column(String(250), nullable=True)
+    value = Column(String(100), nullable=True)
     """
     Value associated with tag: `String` (limit 250 characters). Could be *null*.
     """
@@ -260,7 +260,7 @@ class SqlTag(Base):
 class SqlMetric(Base):
     __tablename__ = 'metrics'
 
-    key = Column(String(250))
+    key = Column(String(100))
     """
     Metric key: `String` (limit 250 characters). Part of *Primary Key* for ``metrics`` table.
     """
@@ -315,7 +315,7 @@ class SqlMetric(Base):
 class SqlLatestMetric(Base):
     __tablename__ = 'latest_metrics'
 
-    key = Column(String(250))
+    key = Column(String(100))
     """
     Metric key: `String` (limit 250 characters). Part of *Primary Key* for ``latest_metrics`` table.
     """
@@ -370,11 +370,11 @@ class SqlLatestMetric(Base):
 class SqlParam(Base):
     __tablename__ = 'params'
 
-    key = Column(String(250))
+    key = Column(String(100))
     """
     Param key: `String` (limit 250 characters). Part of *Primary Key* for ``params`` table.
     """
-    value = Column(String(250), nullable=False)
+    value = Column(String(100), nullable=False)
     """
     Param value: `String` (limit 250 characters). Defined as *Non-null* in schema.
     """
