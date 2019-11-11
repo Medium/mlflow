@@ -80,7 +80,6 @@ class ArtifactRepository:
             basename = posixpath.basename(artifact_path)
             local_path = os.path.join(dest_dir, basename)
             listing = self.list_artifacts(artifact_path)
-            print(basename, local_path, listing)
             if len(listing) > 0:
                 # Artifact_path is a directory, so make a directory for it and download everything
                 if not os.path.exists(local_path):
